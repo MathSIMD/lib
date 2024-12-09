@@ -1,3 +1,5 @@
+#include "detail/setup.h"
+
 #pragma once
 
 #include <cmath>
