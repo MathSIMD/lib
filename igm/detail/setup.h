@@ -611,4 +611,29 @@ namespace igm
 #	endif
 }//namespace igm
 
+///////////////////////////////////////////////////////////////////////////////////
+// constexpr
+
+#if IGM_HAS_CONSTEXPR
+#	define IGM_CONFIG_CONSTEXP IGM_ENABLE
+
+	namespace igm
+	{
+		template<typename T, std::size_t N>
+		constexpr std::size_t countof(T const (&)[N])
+		{
+			return N;
+		}
+	}//namespace igm
+#	define IGM_COUNTOF(arr) igm::countof(arr)
+#elif defined(_MSC_VER)
+#	define IGM_CONFIG_CONSTEXP IGM_DISABLE
+
+#	define IGM_COUNTOF(arr) _countof(arr)
+#else
+#	define IGM_CONFIG_CONSTEXP IGM_DISABLE
+
+#	define IGM_COUNTOF(arr) sizeof(arr) / sizeof(arr[0])
+#endif
+
 #endif // IGM_SETUP_INCLUDED
